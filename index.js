@@ -43,7 +43,6 @@ const listener = {
 
 const remonCall = new Remon({ config, listener });
 
-
 startBtn.onclick = () => {
   remonCall.connectCall('abcdefg');
 }
@@ -52,7 +51,7 @@ stopBtn.onclick = () => {
   remonCall.close();
 }
 
-flipBtn.onclick = async () => {
+flipBtn.onclick = () => {
   remonCall.switchCamera();
 }
 
