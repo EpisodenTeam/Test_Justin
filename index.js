@@ -51,6 +51,7 @@ startBtn.onclick = async () => {
   deviceInfo.forEach((deviceInfo) => {
     if (deviceInfo.kind === "videoinput") {
       cameraList.options[idx] = new Option(deviceInfo.label, deviceInfo.deviceId);
+      console.log(deviceInfo);
       idx++;
     } 
   });
@@ -58,8 +59,8 @@ startBtn.onclick = async () => {
   cameraList.hidden = false;
 };
 
-cameraList.onchange = e => {
-  console.log('test :', e.value);
+cameraList.onchange = () => {
+  remonCall.switchCamera(cameraList.value);
 }
 
 stopBtn.onclick = () => {
