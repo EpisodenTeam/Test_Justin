@@ -51,10 +51,8 @@ navigator.mediaDevices.enumerateDevices().then((result) => {
   result.forEach((deviceInfo) => {
     if (deviceInfo.kind === "videoinput" && deviceInfo.label === "전면 카메라") {
       frontCamera = deviceInfo.deviceId;
-      alert(deviceInfo);
     } else if (deviceInfo.kind === "videoinput" && deviceInfo.label === "후면 카메라") {
       rearCamera = deviceInfo.deviceId;
-      alert(deviceInfo);
     }
   });
 });
