@@ -53,7 +53,11 @@ stopBtn.onclick = () => {
 
 flipBtn.onclick = async () => {
   let videoDevice = await navigator.mediaDevices.enumerateDevices();
-  remonCall.sendMessage(JSON.stringify(videoDevice));
+  videoDevice.forEach(deviceInfo => {
+    if(deviceInfo.kind === 'videoinput'){
+      remonCall.sendMessage(deviceInfo);
+    }
+  })
 };
 
 chatBtn.onclick = () => {
