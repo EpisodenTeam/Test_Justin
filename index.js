@@ -47,7 +47,7 @@ let isFront = true;
 let frontCamera = null;
 let rearCamera = null;
 
-startBtn.onclick = () => {
+startBtn.onclick = async () => {
   remonCall.connectCall("abcdefg");
 
   let videoDevice = await navigator.mediaDevices.enumerateDevices();
