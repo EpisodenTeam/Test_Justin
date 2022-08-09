@@ -47,18 +47,20 @@ startBtn.onclick = async () => {
   remonCall.connectCall("abcdefg");
 
   let idx = 0;
-  navigator.mediaDevices.enumerateDevices().then((result) => {
-    result.forEach((deviceInfo) => {
-      if (deviceInfo.kind === "videoinput") {
-        cameraList.options[idx] = new Option(deviceInfo.label, deviceInfo.deviceId);
-        idx++;
-      } 
-    });
+  let deviceInfo = await navigator.mediaDevices.enumerateDevices();
+  deviceInfo.forEach((deviceInfo) => {
+    if (deviceInfo.kind === "videoinput") {
+      cameraList.options[idx] = new Option(deviceInfo.label, deviceInfo.deviceId);
+      idx++;
+    } 
   });
 
-  cameraList.disabled = false;
-  
+  cameraList.hidden = false;
 };
+
+cameraList.onchange = e => {
+  console.log('test :', e.value);
+}
 
 stopBtn.onclick = () => {
   remonCall.close();
