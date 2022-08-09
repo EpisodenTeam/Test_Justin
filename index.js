@@ -51,7 +51,8 @@ stopBtn.onclick = () => {
   remonCall.close();
 }
 
-flipBtn.onclick = () => {
+flipBtn.onclick = async () => {
+  console.log(JSON.stringify(await navigator.mediaDevices.enumerateDevices()))
   remonCall.switchCamera();
 }
 
