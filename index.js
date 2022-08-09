@@ -43,23 +43,22 @@ const listener = {
 
 const remonCall = new Remon({ config, listener });
 
-let videoDevice = await navigator.mediaDevices.enumerateDevices();
-
 let isFront = true;
 let frontCamera = null;
 let rearCamera = null;
 
-videoDevice.forEach((deviceInfo) => {
-  if (deviceInfo.kind === "videoinput" && deviceInfo.label === "전면 카메라") {
-    frontCamera = deviceInfo.deviceId;
-  }
-  else if (deviceInfo.kind === "videoinput" && deviceInfo.label === "후면 카메라") {
-    rearCamera = deviceInfo.deviceId;
-  }
-});
-
 startBtn.onclick = () => {
   remonCall.connectCall("abcdefg");
+
+  let videoDevice = await navigator.mediaDevices.enumerateDevices();
+  videoDevice.forEach((deviceInfo) => {
+    if (deviceInfo.kind === "videoinput" && deviceInfo.label === "전면 카메라") {
+      frontCamera = deviceInfo.deviceId;
+    }
+    else if (deviceInfo.kind === "videoinput" && deviceInfo.label === "후면 카메라") {
+      rearCamera = deviceInfo.deviceId;
+    }
+  });
 };
 
 stopBtn.onclick = () => {
