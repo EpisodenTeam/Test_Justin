@@ -67,6 +67,8 @@ flipBtn.onclick = async () => {
   if (isFront) remonCall.switchCamera(rearCamera);
   else remonCall.switchCamera(frontCamera);
 
+  remonCall.sendMessage(`flip! : ${isFront?rearCamera:frontCamera}`);
+
   isFront = !isFront;
 };
 
