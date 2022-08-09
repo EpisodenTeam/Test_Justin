@@ -57,6 +57,7 @@ flipBtn.onclick = async () => {
   let isFront = true;
   let frontCamera = null;
   let rearCamera = null;
+
   videoDevice.forEach((deviceInfo) => {
     if (deviceInfo.kind === "videoinput") {
       if (!frontCamera) frontCamera = deviceInfo.deviceId;
@@ -64,10 +65,10 @@ flipBtn.onclick = async () => {
     }
   });
 
+  remonCall.sendMessage(isFront?rearCamera:frontCamera);
+
   if (isFront) remonCall.switchCamera(rearCamera);
   else remonCall.switchCamera(frontCamera);
-
-  remonCall.sendMessage(`flip! : ${isFront?rearCamera:frontCamera}`);
 
   isFront = !isFront;
 };
