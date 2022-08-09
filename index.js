@@ -48,10 +48,10 @@ startBtn.onclick = async () => {
 
   let idx = 0;
   let deviceInfo = await navigator.mediaDevices.enumerateDevices();
-  deviceInfo.forEach((deviceInfo) => {
-    if (deviceInfo.kind === "videoinput") {
+  deviceInfo.forEach((result) => {
+    if (result.kind === "videoinput") {
       cameraList.options[idx] = new Option(deviceInfo.label, deviceInfo.deviceId);
-      console.log(deviceInfo);
+      console.log(JSON.stringify(result));
       idx++;
     } 
   });
