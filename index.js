@@ -1,7 +1,7 @@
-let flipBtn = document.getElementById("flipBtn");
 let startBtn = document.getElementById("startBtn");
 let stopBtn = document.getElementById("stopBtn");
 let chatBtn = document.getElementById("chatBtn");
+let cameraList = document.getElementById("cameraList");
 
 const config = {
   credential: {
@@ -43,35 +43,25 @@ const listener = {
 
 const remonCall = new Remon({ config, listener });
 
-let isFront = true;
-let frontCamera = null;
-let rearCamera = null;
-
-navigator.mediaDevices.enumerateDevices().then((result) => {
-  result.forEach((deviceInfo) => {
-    if (deviceInfo.kind === "videoinput" && deviceInfo.label === "전면 카메라") {
-      console.log(JSON.stringify(deviceInfo));
-      frontCamera = deviceInfo.deviceId;
-    } else if (deviceInfo.kind === "videoinput" && deviceInfo.label === "후면 카메라") {
-      console.log(JSON.stringify(deviceInfo));
-      rearCamera = deviceInfo.deviceId;
-    }
-  });
-});
-
 startBtn.onclick = async () => {
   remonCall.connectCall("abcdefg");
+
+  let idx = 0;
+  navigator.mediaDevices.enumerateDevices().then((result) => {
+    result.forEach((deviceInfo) => {
+      if (deviceInfo.kind === "videoinput") {
+        cameraList.options[idx] = new Option(deviceInfo.label, deviceInfo.deviceId);
+        idx++;
+      } 
+    });
+  });
+
+  cameraList.disabled = false;
+  
 };
 
 stopBtn.onclick = () => {
   remonCall.close();
-};
-
-flipBtn.onclick = async () => {
-  if (isFront) remonCall.sendMessage(rearCamera);
-  else remonCall.sendMessage(frontCamera);
-
-  isFront = !isFront;
 };
 
 chatBtn.onclick = () => {
