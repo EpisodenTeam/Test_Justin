@@ -53,11 +53,21 @@ stopBtn.onclick = () => {
 
 flipBtn.onclick = async () => {
   let videoDevice = await navigator.mediaDevices.enumerateDevices();
-  videoDevice.forEach(deviceInfo => {
-    if(deviceInfo.kind === 'videoinput'){
-      remonCall.sendMessage(deviceInfo);
+
+  let isFront = true;
+  let frontCamera = null;
+  let rearCamera = null;
+  videoDevice.forEach((deviceInfo) => {
+    if (deviceInfo.kind === "videoinput") {
+      if (!frontCamera) frontCamera = deviceInfo.deviceId;
+      else rearCamera = deviceInfo.deviceId;
     }
-  })
+  });
+
+  if (isFront) remonCall.switchCamera(rearCamera);
+  else remonCall.switchCamera(frontCamera);
+
+  isFront = !isFront;
 };
 
 chatBtn.onclick = () => {
