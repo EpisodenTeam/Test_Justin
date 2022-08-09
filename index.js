@@ -1,4 +1,4 @@
-let deviceBtn = document.getElementById("deviceBtn");
+let flipBtn = document.getElementById("flipBtn");
 let startBtn = document.getElementById("startBtn");
 let stopBtn = document.getElementById("stopBtn");
 let chatBtn = document.getElementById("chatBtn");
@@ -43,12 +43,6 @@ const listener = {
 
 const remonCall = new Remon({ config, listener });
 
-deviceBtn.onclick = async () => {
-  let devices = await navigator.mediaDevices.enumerateDevices();
-  devices.forEach(result => {
-    console.log(result);
-  })
-}
 
 startBtn.onclick = () => {
   remonCall.connectCall('abcdefg');
@@ -56,6 +50,10 @@ startBtn.onclick = () => {
 
 stopBtn.onclick = () => {
   remonCall.close();
+}
+
+flipBtn.onclick = async () => {
+  remonCall.switchCamera();
 }
 
 chatBtn.onclick = () => {
